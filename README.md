@@ -59,17 +59,10 @@ The Docker Hub repositories are public:
 
 ## Submission Details
 
-**Links to your three chosen service forks:**
-
-| Service | Fork |
+| Item | Value |
 |---|---|
-| Order Service | https://github.com/peng2026-cloud/order-service-L4 |
-| Product Service | https://github.com/peng2026-cloud/product-service-python-L4 |
-| Store Front | https://github.com/peng2026-cloud/store-front-L4 |
-
-**Identify whether your Product Service uses Python or Rust:** Python.
-
-**Document the API host embedded in your Store Front image:** `localhost`.
-
-- `http://localhost:3000`
-- `http://localhost:3030`
+| Order Service fork | https://github.com/peng2026-cloud/order-service-L4 |
+| Product Service fork | https://github.com/peng2026-cloud/product-service-python-L4 |
+| Store Front fork | https://github.com/peng2026-cloud/store-front-L4 |
+| Product Service language | Python |
+| API host in the Store Front image | `localhost` |
