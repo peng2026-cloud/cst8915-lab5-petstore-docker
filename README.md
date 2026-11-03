@@ -10,7 +10,7 @@
 
 ## 1. Show the stack running from your Docker Hub images.
 
-The final `docker-compose.yaml` in this repository has no `build` keys. It only names images, so Compose downloads them from Docker Hub and does not need the source code.
+The final `docker-compose.yaml` in this repository names the Docker Hub images, so Compose downloads them from Docker Hub.
 
 | Service | Image | Port on the host |
 |---|---|---|
@@ -27,13 +27,13 @@ docker compose ps
 
 ## 2. Show products loading, place an order, and verify the increased message count in the durable queue.
 
-This command shows the queue before the order. `order_queue` has `durable` set to `true`, so the queue survives a broker restart. The last column is the message count:
+This command shows the durable queue and its message count before the order:
 
 ```bash
 docker compose exec rabbitmq rabbitmqctl list_queues name durable messages
 ```
 
-Open http://localhost:8080 in the browser. The products load from the Product Service.
+Open http://localhost:8080 in the browser. The products load.
 
 Select Dog Food and quantity 2. The total is $39.98. Then place the order.
 
@@ -43,11 +43,11 @@ Run the same queue command again:
 docker compose exec rabbitmq rabbitmqctl list_queues name durable messages
 ```
 
-The message count increased by one. This lab has no consumer, so accepted orders stay in RabbitMQ.
+The message count increased by one.
 
 ## 3. Briefly show the running containers and Docker Hub repositories. Hide passwords and full broker connection strings.
 
-The running containers are the four in the `docker compose ps` output from item 1. RabbitMQ is healthy because Compose waits for its health check before it starts the Order Service.
+The running containers are the four in the `docker compose ps` output from item 1.
 
 The Docker Hub repositories are public:
 
@@ -56,8 +56,6 @@ The Docker Hub repositories are public:
 | Order Service | https://hub.docker.com/r/zhizunbao2019/order-service |
 | Product Service | https://hub.docker.com/r/zhizunbao2019/product-service |
 | Store Front | https://hub.docker.com/r/zhizunbao2019/store-front |
-
-Passwords stay in `.env`, which is not in this repository. The Compose file only holds variable names, so it shows no password and no full broker connection string.
 
 ---
 
@@ -73,7 +71,7 @@ Passwords stay in `.env`, which is not in this repository. The Compose file only
 
 **Identify whether your Product Service uses Python or Rust:** Python.
 
-**Document the API host embedded in your Store Front image:** `localhost`. The browser makes the API requests, and Vue embeds these addresses when the image is built:
+**Document the API host embedded in your Store Front image:** `localhost`.
 
 - `http://localhost:3000`
 - `http://localhost:3030`
