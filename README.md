@@ -8,9 +8,9 @@
 
 ---
 
-## 1. The stack runs from my Docker Hub images
+## 1. Show the stack running from your Docker Hub images.
 
-I containerized the Order Service, the Product Service and the Store Front, and I pushed their images to Docker Hub. The final `docker-compose.yaml` in this repository has no `build` keys. It only names images, so Compose downloads them from Docker Hub and does not need the source code.
+The final `docker-compose.yaml` in this repository has no `build` keys. It only names images, so Compose downloads them from Docker Hub and does not need the source code.
 
 | Service | Image | Port on the host |
 |---|---|---|
@@ -19,15 +19,13 @@ I containerized the Order Service, the Product Service and the Store Front, and 
 | Product Service (Python) | `zhizunbao2019/product-service:latest` | 3030 |
 | Store Front | `zhizunbao2019/store-front:latest` | 8080 |
 
-This command lists the running containers, and the IMAGE column shows my Docker Hub images:
+This command lists the running containers, and the IMAGE column shows the Docker Hub images:
 
 ```bash
 docker compose ps
 ```
 
-RabbitMQ is healthy because Compose waits for its health check before it starts the Order Service.
-
-## 2. Products load, and an order reaches the durable queue
+## 2. Show products loading, place an order, and verify the increased message count in the durable queue.
 
 This command shows the queue before the order. `order_queue` has `durable` set to `true`, so the queue survives a broker restart. The last column is the message count:
 
@@ -35,11 +33,11 @@ This command shows the queue before the order. `order_queue` has `durable` set t
 docker compose exec rabbitmq rabbitmqctl list_queues name durable messages
 ```
 
-I open http://localhost:8080 in the browser. The products load from the Product Service.
+Open http://localhost:8080 in the browser. The products load from the Product Service.
 
-I select Dog Food and quantity 2. The total is $39.98. Then I place the order.
+Select Dog Food and quantity 2. The total is $39.98. Then place the order.
 
-I run the same queue command again:
+Run the same queue command again:
 
 ```bash
 docker compose exec rabbitmq rabbitmqctl list_queues name durable messages
@@ -47,12 +45,11 @@ docker compose exec rabbitmq rabbitmqctl list_queues name durable messages
 
 The message count increased by one. This lab has no consumer, so accepted orders stay in RabbitMQ.
 
-The browser makes the API requests, so the Store Front uses addresses that the browser can reach. Vue embeds these addresses when the image is built, and the API host in my Store Front image is `localhost`:
+## 3. Briefly show the running containers and Docker Hub repositories. Hide passwords and full broker connection strings.
 
-- `http://localhost:3000`
-- `http://localhost:3030`
+The running containers are the four in the `docker compose ps` output from item 1. RabbitMQ is healthy because Compose waits for its health check before it starts the Order Service.
 
-## 3. The Docker Hub repositories are public
+The Docker Hub repositories are public:
 
 | Service | Docker Hub repository |
 |---|---|
@@ -60,21 +57,23 @@ The browser makes the API requests, so the Store Front uses addresses that the b
 | Product Service | https://hub.docker.com/r/zhizunbao2019/product-service |
 | Store Front | https://hub.docker.com/r/zhizunbao2019/store-front |
 
+Passwords stay in `.env`, which is not in this repository. The Compose file only holds variable names, so it shows no password and no full broker connection string.
+
 ---
 
-## Service Forks
+## Submission Details
 
-Each fork holds the Dockerfile for its service. My Product Service uses the Python implementation.
+**Links to your three chosen service forks:**
 
 | Service | Fork |
 |---|---|
 | Order Service | https://github.com/peng2026-cloud/order-service-L4 |
-| Product Service (Python) | https://github.com/peng2026-cloud/product-service-python-L4 |
+| Product Service | https://github.com/peng2026-cloud/product-service-python-L4 |
 | Store Front | https://github.com/peng2026-cloud/store-front-L4 |
 
-## Files
+**Identify whether your Product Service uses Python or Rust:** Python.
 
-| File | Purpose |
-|---|---|
-| `docker-compose.yaml` | The final image-only Compose file. |
-| `.env.example` | Public deployment values and placeholder credentials. My actual `.env` is ignored. |
+**Document the API host embedded in your Store Front image:** `localhost`. The browser makes the API requests, and Vue embeds these addresses when the image is built:
+
+- `http://localhost:3000`
+- `http://localhost:3030`
