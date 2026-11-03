@@ -47,7 +47,11 @@ The message count increased by one.
 
 ## 3. Briefly show the running containers and Docker Hub repositories. Hide passwords and full broker connection strings.
 
-The running containers are the four in the `docker compose ps` output from item 1.
+This command shows the running containers:
+
+```bash
+docker compose ps
+```
 
 The Docker Hub repositories are public:
 
