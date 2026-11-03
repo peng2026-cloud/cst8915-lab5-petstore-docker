@@ -4,7 +4,7 @@
 |---|---|---|---|
 | Peng Wang | 041107730 | CST8915 Full-stack Cloud-native Development | Fall 2026 |
 
-🎥 [Watch Demo Video](VIDEO_LINK)
+🎥 [Watch Demo Video](https://www.youtube.com/watch?v=bbWL9oNa3Bw)
 
 ---
 
@@ -35,7 +35,7 @@ docker compose exec rabbitmq rabbitmqctl list_queues name durable messages
 
 Open http://localhost:8080 in the browser. The products load.
 
-Select Dog Food and quantity 2. The total is $39.98. Then place the order.
+Select Cat Food and quantity 2. The total is $69.98. Then place the order.
 
 Run the same queue command again:
 
